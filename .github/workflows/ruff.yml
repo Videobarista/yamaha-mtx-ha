@@ -1,0 +1,31 @@
+name: Ruff
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ruff:
+    name: Lint and format
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Ruff check
+        uses: astral-sh/ruff-action@v3
+        with:
+          version: "0.12.0"
+          args: check
+
+      - name: Ruff format
+        uses: astral-sh/ruff-action@v3
+        with:
+          version: "0.12.0"
+          args: format --check --diff
