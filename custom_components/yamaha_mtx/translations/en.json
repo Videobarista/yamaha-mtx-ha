@@ -1,0 +1,236 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to a Yamaha MTX",
+        "description": "Supported: MTX3 and MTX5-D. The MTX accepts up to 8 remote control connections at the same time.",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "IP address or hostname of the MTX. Enter `simulator` (MTX3) or `simulator-mtx5d` (MTX5-D) to try the integration without hardware.",
+          "port": "Yamaha remote control port, 49280 by default."
+        }
+      },
+      "reconfigure": {
+        "title": "Change connection",
+        "description": "Enter the new address of this MTX.",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "IP address or hostname of the MTX. Enter `simulator` (MTX3) or `simulator-mtx5d` (MTX5-D) to try the integration without hardware.",
+          "port": "Yamaha remote control port, 49280 by default."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect. Check the address, the network and that the MTX is powered on.",
+      "unsupported_model": "This device reports itself as {model}. Only MTX3 and MTX5-D are supported.",
+      "unknown": "Unexpected error, see the log for details."
+    },
+    "abort": {
+      "already_configured": "This MTX is already configured.",
+      "reconfigure_successful": "The connection was updated.",
+      "wrong_device": "Another device answers at this address. Enter the address of the MTX that belongs to this entry."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Entities",
+        "description": "Choose which groups of controls become entities. Matrix crosspoints create many entities (MTX3: 416, MTX5-D: 1088); the `set_crosspoint` action works without them.",
+        "data": {
+          "inputs": "Input channels",
+          "zones": "Zones",
+          "outputs": "Output channels",
+          "router": "Output router",
+          "dca": "DCA groups",
+          "matrix": "Matrix crosspoints"
+        },
+        "data_description": {
+          "inputs": "Level and on/off of every input channel.",
+          "zones": "Master level and on/off of every zone.",
+          "outputs": "Level and on/off of every output channel.",
+          "router": "Source selection (zone or YDIF input) of every output channel.",
+          "dca": "Level and mute of the input and zone DCA groups A-H.",
+          "matrix": "Level and on/off of every input-to-zone crosspoint."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connection": {
+        "name": "Connection"
+      }
+    },
+    "button": {
+      "resync": {
+        "name": "Resync"
+      }
+    },
+    "number": {
+      "input_level": {
+        "name": "{channel} level"
+      },
+      "zone_level": {
+        "name": "Zone {zone} level"
+      },
+      "output_level": {
+        "name": "Output {output} level"
+      },
+      "input_dca_level": {
+        "name": "Input DCA {dca} level"
+      },
+      "zone_dca_level": {
+        "name": "Zone DCA {dca} level"
+      },
+      "crosspoint_level": {
+        "name": "{channel} to zone {zone} level"
+      }
+    },
+    "select": {
+      "router": {
+        "name": "Output {output} source"
+      },
+      "preset": {
+        "name": "Preset"
+      }
+    },
+    "sensor": {
+      "run_mode": {
+        "name": "Run mode",
+        "state": {
+          "normal": "Normal",
+          "emergency": "Emergency",
+          "update": "Updating"
+        }
+      },
+      "alert": {
+        "name": "Alert",
+        "state": {
+          "none": "None"
+        }
+      },
+      "sampling_rate": {
+        "name": "Sampling rate"
+      },
+      "word_clock": {
+        "name": "Word clock",
+        "state": {
+          "lock": "Locked",
+          "unlock": "Unlocked"
+        }
+      }
+    },
+    "switch": {
+      "input_on": {
+        "name": "{channel} on"
+      },
+      "zone_on": {
+        "name": "Zone {zone} on"
+      },
+      "output_on": {
+        "name": "Output {output} on"
+      },
+      "input_dca_mute": {
+        "name": "Input DCA {dca} mute"
+      },
+      "zone_dca_mute": {
+        "name": "Zone DCA {dca} mute"
+      },
+      "crosspoint_on": {
+        "name": "{channel} to zone {zone}"
+      },
+      "scheduler": {
+        "name": "Event scheduler"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Cannot connect to the MTX at {host}: {error}"
+    },
+    "unsupported_model": {
+      "message": "The device at {host} is a {model}. Only MTX3 and MTX5-D are supported."
+    },
+    "wrong_device": {
+      "message": "Another device answers at {host} (serial {serial}). Reconfigure this entry if the MTX has a new address."
+    },
+    "set_failed": {
+      "message": "{device} rejected the change: {error}"
+    },
+    "recall_failed": {
+      "message": "{device} could not recall preset {preset}: {error}"
+    },
+    "resync_failed": {
+      "message": "Resync of {device} failed: {error}"
+    },
+    "unknown_option": {
+      "message": "Unknown option: {option}"
+    },
+    "entry_not_found": {
+      "message": "No Yamaha MTX entry found with id {entry_id}."
+    },
+    "entry_not_loaded": {
+      "message": "{title} is not loaded."
+    },
+    "not_connected": {
+      "message": "{device} is not connected."
+    },
+    "invalid_crosspoint": {
+      "message": "{device} has no crosspoint from {source} to zone {zone}."
+    },
+    "invalid_command": {
+      "message": "The command must be a single line of text."
+    },
+    "command_failed": {
+      "message": "Sending the command to {device} failed: {error}"
+    }
+  },
+  "services": {
+    "set_crosspoint": {
+      "name": "Set crosspoint",
+      "description": "Sets the level and/or on state of one matrix crosspoint (input to zone). Works without the crosspoint entities.",
+      "fields": {
+        "config_entry_id": {
+          "name": "MTX",
+          "description": "The MTX to control."
+        },
+        "source": {
+          "name": "Source",
+          "description": "Matrix input: CH, ST IN or FX RTN."
+        },
+        "zone": {
+          "name": "Zone",
+          "description": "Zone number (MTX3: 1-8, MTX5-D: 1-16)."
+        },
+        "level": {
+          "name": "Level",
+          "description": "Crosspoint level in dB."
+        },
+        "enabled": {
+          "name": "Enabled",
+          "description": "Turn the crosspoint on or off."
+        }
+      }
+    },
+    "send_command": {
+      "name": "Send command",
+      "description": "Sends one raw Yamaha remote control (RCP) command and returns the reply line, including ERROR replies. For advanced use.",
+      "fields": {
+        "config_entry_id": {
+          "name": "MTX",
+          "description": "The MTX to send the command to."
+        },
+        "command": {
+          "name": "Command",
+          "description": "One RCP command line, for example a get or set."
+        }
+      }
+    }
+  }
+}

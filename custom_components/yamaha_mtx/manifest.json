@@ -1,0 +1,12 @@
+{
+  "domain": "yamaha_mtx",
+  "name": "Yamaha MTX",
+  "codeowners": ["@Videobarista"],
+  "config_flow": true,
+  "documentation": "https://github.com/Videobarista/yamaha-mtx-ha",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/Videobarista/yamaha-mtx-ha/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

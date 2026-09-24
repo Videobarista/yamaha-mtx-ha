@@ -1,0 +1,236 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Verbinden met een Yamaha MTX",
+        "description": "Ondersteund: MTX3 en MTX5-D. De MTX accepteert maximaal 8 remote control-verbindingen tegelijk.",
+        "data": {
+          "host": "Host",
+          "port": "Poort"
+        },
+        "data_description": {
+          "host": "IP-adres of hostnaam van de MTX. Vul `simulator` (MTX3) of `simulator-mtx5d` (MTX5-D) in om de integratie zonder hardware te proberen.",
+          "port": "Yamaha remote control-poort, standaard 49280."
+        }
+      },
+      "reconfigure": {
+        "title": "Verbinding wijzigen",
+        "description": "Vul het nieuwe adres van deze MTX in.",
+        "data": {
+          "host": "Host",
+          "port": "Poort"
+        },
+        "data_description": {
+          "host": "IP-adres of hostnaam van de MTX. Vul `simulator` (MTX3) of `simulator-mtx5d` (MTX5-D) in om de integratie zonder hardware te proberen.",
+          "port": "Yamaha remote control-poort, standaard 49280."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken. Controleer het adres, het netwerk en of de MTX aan staat.",
+      "unsupported_model": "Dit apparaat meldt zich als {model}. Alleen MTX3 en MTX5-D worden ondersteund.",
+      "unknown": "Onverwachte fout, zie het logboek voor details."
+    },
+    "abort": {
+      "already_configured": "Deze MTX is al ingesteld.",
+      "reconfigure_successful": "De verbinding is bijgewerkt.",
+      "wrong_device": "Op dit adres antwoordt een ander apparaat. Vul het adres in van de MTX die bij deze vermelding hoort."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Entiteiten",
+        "description": "Kies welke groepen bedieningen entiteiten worden. Matrix-kruispunten leveren veel entiteiten op (MTX3: 416, MTX5-D: 1088); de actie `set_crosspoint` werkt ook zonder.",
+        "data": {
+          "inputs": "Ingangskanalen",
+          "zones": "Zones",
+          "outputs": "Uitgangskanalen",
+          "router": "Uitgangsrouter",
+          "dca": "DCA-groepen",
+          "matrix": "Matrix-kruispunten"
+        },
+        "data_description": {
+          "inputs": "Niveau en aan/uit van elk ingangskanaal.",
+          "zones": "Masterniveau en aan/uit van elke zone.",
+          "outputs": "Niveau en aan/uit van elk uitgangskanaal.",
+          "router": "Bronkeuze (zone of YDIF-ingang) van elk uitgangskanaal.",
+          "dca": "Niveau en mute van de ingangs- en zone-DCA-groepen A-H.",
+          "matrix": "Niveau en aan/uit van elk kruispunt van ingang naar zone."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connection": {
+        "name": "Verbinding"
+      }
+    },
+    "button": {
+      "resync": {
+        "name": "Opnieuw synchroniseren"
+      }
+    },
+    "number": {
+      "input_level": {
+        "name": "{channel} niveau"
+      },
+      "zone_level": {
+        "name": "Zone {zone} niveau"
+      },
+      "output_level": {
+        "name": "Uitgang {output} niveau"
+      },
+      "input_dca_level": {
+        "name": "Ingangs-DCA {dca} niveau"
+      },
+      "zone_dca_level": {
+        "name": "Zone-DCA {dca} niveau"
+      },
+      "crosspoint_level": {
+        "name": "{channel} naar zone {zone} niveau"
+      }
+    },
+    "select": {
+      "router": {
+        "name": "Uitgang {output} bron"
+      },
+      "preset": {
+        "name": "Preset"
+      }
+    },
+    "sensor": {
+      "run_mode": {
+        "name": "Bedrijfsmodus",
+        "state": {
+          "normal": "Normaal",
+          "emergency": "Noodmodus",
+          "update": "Bijwerken"
+        }
+      },
+      "alert": {
+        "name": "Melding",
+        "state": {
+          "none": "Geen"
+        }
+      },
+      "sampling_rate": {
+        "name": "Samplefrequentie"
+      },
+      "word_clock": {
+        "name": "Wordclock",
+        "state": {
+          "lock": "Vergrendeld",
+          "unlock": "Niet vergrendeld"
+        }
+      }
+    },
+    "switch": {
+      "input_on": {
+        "name": "{channel} aan"
+      },
+      "zone_on": {
+        "name": "Zone {zone} aan"
+      },
+      "output_on": {
+        "name": "Uitgang {output} aan"
+      },
+      "input_dca_mute": {
+        "name": "Ingangs-DCA {dca} mute"
+      },
+      "zone_dca_mute": {
+        "name": "Zone-DCA {dca} mute"
+      },
+      "crosspoint_on": {
+        "name": "{channel} naar zone {zone}"
+      },
+      "scheduler": {
+        "name": "Event scheduler"
+      }
+    }
+  },
+  "exceptions": {
+    "cannot_connect": {
+      "message": "Kan geen verbinding maken met de MTX op {host}: {error}"
+    },
+    "unsupported_model": {
+      "message": "Het apparaat op {host} is een {model}. Alleen MTX3 en MTX5-D worden ondersteund."
+    },
+    "wrong_device": {
+      "message": "Op {host} antwoordt een ander apparaat (serienummer {serial}). Wijzig de verbinding als de MTX een nieuw adres heeft."
+    },
+    "set_failed": {
+      "message": "{device} weigerde de wijziging: {error}"
+    },
+    "recall_failed": {
+      "message": "{device} kon preset {preset} niet oproepen: {error}"
+    },
+    "resync_failed": {
+      "message": "Synchroniseren van {device} mislukt: {error}"
+    },
+    "unknown_option": {
+      "message": "Onbekende keuze: {option}"
+    },
+    "entry_not_found": {
+      "message": "Geen Yamaha MTX-vermelding gevonden met id {entry_id}."
+    },
+    "entry_not_loaded": {
+      "message": "{title} is niet geladen."
+    },
+    "not_connected": {
+      "message": "{device} is niet verbonden."
+    },
+    "invalid_crosspoint": {
+      "message": "{device} heeft geen kruispunt van {source} naar zone {zone}."
+    },
+    "invalid_command": {
+      "message": "Het commando moet uit één regel tekst bestaan."
+    },
+    "command_failed": {
+      "message": "Versturen van het commando naar {device} mislukt: {error}"
+    }
+  },
+  "services": {
+    "set_crosspoint": {
+      "name": "Kruispunt instellen",
+      "description": "Stelt niveau en/of aan/uit van één matrix-kruispunt (ingang naar zone) in. Werkt ook zonder de kruispunt-entiteiten.",
+      "fields": {
+        "config_entry_id": {
+          "name": "MTX",
+          "description": "De MTX om te bedienen."
+        },
+        "source": {
+          "name": "Bron",
+          "description": "Matrix-ingang: CH, ST IN of FX RTN."
+        },
+        "zone": {
+          "name": "Zone",
+          "description": "Zonenummer (MTX3: 1-8, MTX5-D: 1-16)."
+        },
+        "level": {
+          "name": "Niveau",
+          "description": "Kruispuntniveau in dB."
+        },
+        "enabled": {
+          "name": "Aan",
+          "description": "Zet het kruispunt aan of uit."
+        }
+      }
+    },
+    "send_command": {
+      "name": "Commando versturen",
+      "description": "Verstuurt één ruw Yamaha remote control-commando (RCP) en geeft de antwoordregel terug, ook bij ERROR. Voor gevorderd gebruik.",
+      "fields": {
+        "config_entry_id": {
+          "name": "MTX",
+          "description": "De MTX om het commando naar te sturen."
+        },
+        "command": {
+          "name": "Commando",
+          "description": "Eén RCP-commandoregel, bijvoorbeeld een get of set."
+        }
+      }
+    }
+  }
+}

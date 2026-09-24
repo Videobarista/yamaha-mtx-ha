@@ -1,0 +1,121 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "connection": {
+        "default": "mdi:lan-connect",
+        "state": {
+          "off": "mdi:lan-disconnect"
+        }
+      }
+    },
+    "button": {
+      "resync": {
+        "default": "mdi:sync"
+      }
+    },
+    "number": {
+      "input_level": {
+        "default": "mdi:tune-vertical"
+      },
+      "zone_level": {
+        "default": "mdi:home-sound-out"
+      },
+      "output_level": {
+        "default": "mdi:volume-high"
+      },
+      "input_dca_level": {
+        "default": "mdi:tune-vertical-variant"
+      },
+      "zone_dca_level": {
+        "default": "mdi:tune-vertical-variant"
+      },
+      "crosspoint_level": {
+        "default": "mdi:grid"
+      }
+    },
+    "select": {
+      "router": {
+        "default": "mdi:call-split"
+      },
+      "preset": {
+        "default": "mdi:playlist-play"
+      }
+    },
+    "sensor": {
+      "run_mode": {
+        "default": "mdi:state-machine",
+        "state": {
+          "emergency": "mdi:alarm-light",
+          "update": "mdi:update"
+        }
+      },
+      "alert": {
+        "default": "mdi:alert-circle-outline",
+        "state": {
+          "none": "mdi:check-circle-outline"
+        }
+      },
+      "sampling_rate": {
+        "default": "mdi:sine-wave"
+      },
+      "word_clock": {
+        "default": "mdi:clock-check-outline",
+        "state": {
+          "unlock": "mdi:clock-alert-outline"
+        }
+      }
+    },
+    "switch": {
+      "input_on": {
+        "default": "mdi:microphone",
+        "state": {
+          "off": "mdi:microphone-off"
+        }
+      },
+      "zone_on": {
+        "default": "mdi:speaker",
+        "state": {
+          "off": "mdi:speaker-off"
+        }
+      },
+      "output_on": {
+        "default": "mdi:volume-high",
+        "state": {
+          "off": "mdi:volume-off"
+        }
+      },
+      "input_dca_mute": {
+        "default": "mdi:volume-off",
+        "state": {
+          "off": "mdi:volume-high"
+        }
+      },
+      "zone_dca_mute": {
+        "default": "mdi:volume-off",
+        "state": {
+          "off": "mdi:volume-high"
+        }
+      },
+      "crosspoint_on": {
+        "default": "mdi:checkbox-marked-circle-outline",
+        "state": {
+          "off": "mdi:checkbox-blank-circle-outline"
+        }
+      },
+      "scheduler": {
+        "default": "mdi:calendar-clock",
+        "state": {
+          "off": "mdi:calendar-remove"
+        }
+      }
+    }
+  },
+  "services": {
+    "set_crosspoint": {
+      "service": "mdi:grid"
+    },
+    "send_command": {
+      "service": "mdi:console"
+    }
+  }
+}
